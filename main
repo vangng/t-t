@@ -1,42 +1,138 @@
-CREATE DATABASE shop_acc;
-USE shop_acc;
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop Acc Facebook Uy Tín</title>
 
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50),
-    password VARCHAR(100),
-    balance BIGINT DEFAULT 0
-);
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial}
+body{background:#0f172a;color:#fff}
+header{background:#020617;padding:20px;text-align:center;font-size:26px;font-weight:bold;color:#22c55e}
+.container{max-width:1200px;margin:auto;padding:20px}
+.card{background:#020617;border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 0 10px rgba(0,0,0,0.5)}
+h2{margin-bottom:10px;color:#22c55e}
+button{background:#22c55e;border:none;padding:10px 20px;border-radius:8px;color:#000;font-weight:bold;cursor:pointer}
+button:hover{background:#16a34a}
+input{width:100%;padding:10px;margin:10px 0;border-radius:8px;border:none}
+.nav{display:flex;gap:20px;justify-content:center;margin-bottom:20px}
+.nav button{background:#1e293b;color:#fff}
+.acc{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid #1e293b}
+footer{text-align:center;padding:20px;background:#020617;margin-top:30px;color:#94a3b8}
+</style>
+</head>
 
-CREATE TABLE products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    price BIGINT
-);
+<body>
 
-CREATE TABLE accounts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT,
-    account TEXT,
-    sold TINYINT DEFAULT 0
-);
+<header>🔥 SHOP ACC FACEBOOK UY TÍN 🔥</header>
 
-CREATE TABLE transactions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    order_id VARCHAR(100),
-    amount BIGINT,
-    status VARCHAR(20)
-);
+<div class="container">
 
-INSERT INTO users (username,password,balance) VALUES ('vang','123456',0);
+<div class="nav">
+<button onclick="showTab('home')">Trang chủ</button>
+<button onclick="showTab('shop')">Mua acc</button>
+<button onclick="showTab('nap')">Nạp tiền</button>
+<button onclick="showTab('history')">Lịch sử</button>
+</div>
 
-INSERT INTO products (name,price) VALUES 
-('VIA Cổ',20000),
-('VIA Việt',10000);
+<div id="home" class="card">
+<h2>Chào mừng</h2>
+<p>Chúng tôi chuyên cung cấp acc Facebook clone chất lượng cao.</p>
+<ul>
+<li>✔️ Chạy quảng cáo</li>
+<li>✔️ Seeding</li>
+<li>✔️ Nuôi via</li>
+<li>✔️ Backup</li>
+</ul>
+</div>
 
-INSERT INTO accounts (product_id,account) VALUES 
-(1,'via1|pass1'),
-(1,'via2|pass2'),
-(2,'via3|pass3'),
-(2,'via4|pass4');
+<div id="shop" class="card" style="display:none">
+<h2>Danh sách acc</h2>
+<div id="list"></div>
+</div>
+
+<div id="nap" class="card" style="display:none">
+<h2>Nạp tiền</h2>
+<input id="money" placeholder="Số tiền">
+<button onclick="nap()">Nạp</button>
+<p>Số dư: <span id="balance">0</span> VNĐ</p>
+</div>
+
+<div id="history" class="card" style="display:none">
+<h2>Lịch sử</h2>
+<div id="his"></div>
+</div>
+
+</div>
+
+<footer>© 2026 SHOP ACC | All Rights Reserved</footer>
+
+<script>
+let balance=0
+let accs=[]
+let history=[]
+
+for(let i=1;i<=200;i++){
+accs.push({
+id:i,
+name:"Acc #"+i,
+price:Math.floor(Math.random()*5000)+1000,
+user:"user"+i,
+pass:"pass"+i
+})
+}
+
+function render(){
+let html=""
+accs.forEach(a=>{
+html+=`
+<div class="acc">
+<div>
+<b>${a.name}</b><br>
+${a.price} VNĐ
+</div>
+<button onclick="buy(${a.id})">Mua</button>
+</div>`
+})
+document.getElementById("list").innerHTML=html
+}
+render()
+
+function buy(id){
+let acc=accs.find(a=>a.id==id)
+if(balance<acc.price){
+alert("Không đủ tiền")
+return
+}
+balance-=acc.price
+document.getElementById("balance").innerText=balance
+history.push("Mua "+acc.name+" | "+acc.user+"|"+acc.pass)
+updateHistory()
+alert("Mua thành công: "+acc.user+" | "+acc.pass)
+}
+
+function nap(){
+let m=parseInt(document.getElementById("money").value)
+if(!m)return
+balance+=m
+document.getElementById("balance").innerText=balance
+history.push("Nạp "+m+" VNĐ")
+updateHistory()
+}
+
+function updateHistory(){
+let html=""
+history.forEach(h=>{
+html+="<p>"+h+"</p>"
+})
+document.getElementById("his").innerHTML=html
+}
+
+function showTab(id){
+document.querySelectorAll(".card").forEach(e=>e.style.display="none")
+document.getElementById(id).style.display="block"
+}
+</script>
+
+</body>
+</html>
