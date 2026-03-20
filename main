@@ -3,89 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHOP ACC FACEBOOK VIP</title>
+<title>SHOP ACC FACEBOOK</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#0f172a;color:#fff}
-header{background:#020617;padding:20px;text-align:center;font-size:26px;font-weight:bold;color:#22c55e}
-.container{max-width:1200px;margin:auto;padding:20px}
-.card{background:#020617;border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 0 10px rgba(0,0,0,0.5)}
-h2{margin-bottom:10px;color:#22c55e}
-button{background:#22c55e;border:none;padding:10px 20px;border-radius:8px;color:#000;font-weight:bold;cursor:pointer}
-button:hover{background:#16a34a}
-input{width:100%;padding:10px;margin:10px 0;border-radius:8px;border:none}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px}
-.acc-card{background:#020617;padding:15px;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,0.6)}
-.topbar{display:flex;justify-content:space-between;padding:10px;background:#020617}
-.badge{background:#22c55e;color:#000;padding:4px 10px;border-radius:20px}
+header{background:#020617;padding:20px;text-align:center;color:#22c55e;font-size:24px}
+.container{max-width:1100px;margin:auto;padding:20px}
+.card{background:#020617;padding:20px;border-radius:10px;margin-bottom:20px}
+input{width:100%;padding:10px;margin:10px 0;border-radius:6px;border:none}
+button{background:#22c55e;border:none;padding:8px 15px;border-radius:6px;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.acc{background:#111827;padding:10px;border-radius:8px;text-align:center}
+.top{display:flex;justify-content:space-between;padding:10px;background:#020617}
+.cart{position:fixed;right:10px;bottom:10px;background:#020617;padding:10px;border-radius:10px;width:220px}
+.log{background:#000;padding:10px;height:120px;overflow:auto;font-size:12px}
 .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:#0009;display:none;align-items:center;justify-content:center}
-.modal-box{background:#020617;padding:20px;border-radius:12px;width:300px}
-.cart{position:fixed;right:20px;bottom:20px;background:#020617;padding:15px;border-radius:12px;width:250px}
-.cart-item{border-bottom:1px solid #1e293b;padding:5px 0;font-size:13px}
-.log{background:#000;padding:10px;height:150px;overflow:auto;font-size:12px}
-.toast{position:fixed;top:20px;right:20px;background:#22c55e;padding:10px;border-radius:8px;color:#000;display:none}
+.box{background:#020617;padding:20px;border-radius:10px;width:250px}
+.toast{position:fixed;top:10px;right:10px;background:#22c55e;padding:10px;border-radius:6px;color:#000;display:none}
 </style>
 </head>
 
 <body>
 
-<header>🔥 SHOP ACC FACEBOOK UY TÍN 🔥</header>
+<header>🔥 SHOP ACC FACEBOOK 🔥</header>
 
-<div class="topbar">
-<div>💰 Số dư: <b id="balance">0</b></div>
-<div class="badge">online</div>
+<div class="top">
+<div>💰 <span id="balance">0</span></div>
+<div id="online">0 online</div>
 </div>
 
 <div class="container">
 
 <div class="card">
-<h2>Tìm kiếm</h2>
-<input id="search" placeholder="Tìm acc..." oninput="searchAcc()">
+<h3>Tìm kiếm</h3>
+<input id="search" placeholder="Nhập..." oninput="searchAcc()">
 </div>
 
 <div class="card">
-<h2>Danh sách acc</h2>
-<div id="grid" class="grid"></div>
+<h3>Danh sách acc</h3>
+<div id="list" class="grid"></div>
 </div>
 
 <div class="card">
-<h2>Lịch sử</h2>
+<h3>Lịch sử</h3>
 <div id="history"></div>
 </div>
 
 <div class="card">
-<h2>Log hệ thống</h2>
+<h3>Log</h3>
 <div id="log" class="log"></div>
 </div>
 
 </div>
 
 <div class="cart">
-<h3>🛒 Giỏ hàng</h3>
+<h4>🛒 Giỏ hàng</h4>
 <div id="cart"></div>
 <button onclick="checkout()">Thanh toán</button>
 </div>
 
-<div class="modal" id="loginModal">
-<div class="modal-box">
-<h3>Đăng nhập</h3>
-<input id="user" placeholder="Username">
-<input id="pass" placeholder="Password">
-<button onclick="login()">Đăng nhập</button>
+<div class="modal" id="login">
+<div class="box">
+<input id="u" placeholder="User">
+<input id="p" placeholder="Pass">
+<button onclick="login()">Login</button>
 </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div id="toast" class="toast"></div>
 
 <script>
-let balance=0,accs=[],cart=[],history=[],currentUser=null;
+let balance=0
+let accs=[]
+let cart=[]
+let history=[]
+let user=null
 
-/* DATA */
-for(let i=1;i<=150;i++){
+/* INIT DATA */
+for(let i=1;i<=100;i++){
 accs.push({
 id:i,
-name:"Acc #"+i,
+name:"Acc "+i,
 price:Math.floor(Math.random()*5000)+1000,
 user:"user"+i,
 pass:"pass"+i
@@ -93,83 +92,92 @@ pass:"pass"+i
 }
 
 /* RENDER */
-function render(list=accs){
+function render(list){
+if(!list) list=accs
 let html=""
 list.forEach(a=>{
 html+=`
-<div class="acc-card">
-<h3>${a.name}</h3>
-<p>💰 ${a.price} VNĐ</p>
+<div class="acc">
+<h4>${a.name}</h4>
+<p>${a.price} VNĐ</p>
 <button onclick="addCart(${a.id})">Mua</button>
 </div>`
 })
-document.getElementById("grid").innerHTML=html
+document.getElementById("list").innerHTML=html
 }
-render()
 
 /* SEARCH */
 function searchAcc(){
-let key=document.getElementById("search").value.toLowerCase()
-render(accs.filter(a=>a.name.toLowerCase().includes(key)))
+let k=document.getElementById("search").value.toLowerCase()
+let f=accs.filter(a=>a.name.toLowerCase().includes(k))
+render(f)
 }
 
 /* CART */
 function addCart(id){
-let acc=accs.find(a=>a.id==id)
-if(!acc)return
-cart.push(acc)
+let a=accs.find(x=>x.id==id)
+if(!a)return
+cart.push(a)
 renderCart()
-toast("Đã thêm vào giỏ")
+toast("Đã thêm")
 }
 
 function renderCart(){
 let html=""
 cart.forEach(a=>{
-html+=`<div class="cart-item">${a.name} - ${a.price}</div>`
+html+=`<p>${a.name}</p>`
 })
 document.getElementById("cart").innerHTML=html
 }
 
 /* CHECKOUT */
 function checkout(){
-let total=cart.reduce((sum,a)=>sum+a.price,0)
-if(balance<total){alert("Không đủ tiền");return}
+let total=cart.reduce((s,a)=>s+a.price,0)
+if(balance<total){
+alert("Không đủ tiền")
+return
+}
 balance-=total
+
 cart.forEach(a=>{
-history.push("Mua "+a.name+" | "+a.user+"|"+a.pass)
+history.push(a.name+" | "+a.user+" | "+a.pass)
 accs=accs.filter(x=>x.id!=a.id)
 })
+
 cart=[]
 renderCart()
 render()
 updateHistory()
 updateBalance()
-toast("Thanh toán thành công")
+toast("Mua thành công")
 }
 
 /* HISTORY */
 function updateHistory(){
 let html=""
-history.forEach(h=>html+="<p>"+h+"</p>")
+history.forEach(h=>{
+html+="<p>"+h+"</p>"
+})
 document.getElementById("history").innerHTML=html
 }
 
 /* LOGIN */
-setTimeout(()=>{document.getElementById("loginModal").style.display="flex"},1000)
+setTimeout(()=>{
+document.getElementById("login").style.display="flex"
+},800)
 
 function login(){
-let u=document.getElementById("user").value
-currentUser={name:u}
-document.getElementById("loginModal").style.display="none"
-addLog("👤 "+u+" đăng nhập")
-toast("Login thành công")
+user=document.getElementById("u").value
+document.getElementById("login").style.display="none"
+log("Login: "+user)
+toast("Đăng nhập OK")
 }
 
 /* LOG */
-function addLog(t){
-let log=document.getElementById("log")
-log.innerHTML+="<p>"+t+"</p>"
-log.scrollTop=log.scrollHeight
+function log(t){
+let l=document.getElementById("log")
+l.innerHTML+="<p>"+t+"</p>"
+l.scrollTop=l.scrollHeight
 }
 
 /* TOAST */
@@ -185,36 +193,38 @@ function updateBalance(){
 document.getElementById("balance").innerText=balance
 }
 
-/* AUTO FAKE */
+/* AUTO MONEY */
 setInterval(()=>{
 if(Math.random()>0.7){
-let m=Math.floor(Math.random()*3000)
+let m=Math.floor(Math.random()*2000)
 balance+=m
 updateBalance()
-addLog("💸 +"+m)
+log("+ "+m)
 }
-},5000)
+},4000)
 
 /* ONLINE */
 setInterval(()=>{
-document.querySelector(".badge").innerText=Math.floor(Math.random()*100)+" online"
-},3000)
+document.getElementById("online").innerText=Math.floor(Math.random()*100)+" online"
+},2000)
 
 /* SAVE */
 setInterval(()=>{
-localStorage.setItem("data",JSON.stringify({balance,history,accs}))
+localStorage.setItem("shop",JSON.stringify({balance,history,accs}))
 },3000)
 
 /* LOAD */
-window.onload=()=>{
-let d=localStorage.getItem("data")
+window.onload=function(){
+let d=localStorage.getItem("shop")
 if(d){
 d=JSON.parse(d)
-balance=d.balance
-history=d.history
-accs=d.accs
+balance=d.balance||0
+history=d.history||[]
+accs=d.accs||accs
 updateBalance()
 updateHistory()
+render()
+}else{
 render()
 }
 }
